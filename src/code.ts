@@ -1,7 +1,7 @@
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-function calculateScrollPercent(element) {
+function calculateScrollPercent(element: Element) {
   const { 
     scrollTop,
     scrollHeight,
@@ -10,9 +10,6 @@ function calculateScrollPercent(element) {
   return (scrollTop / (scrollHeight - clientHeight)) * 100;
 }
 
-document.body.style.visibility = 'visible';
-
-//streams 
 const scroll$ = fromEvent(document, 'scroll');
 const progress: HTMLElement = document.querySelector('.progress-bar');
 
