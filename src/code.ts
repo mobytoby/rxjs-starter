@@ -17,17 +17,12 @@ const scroll$ = fromEvent(document, 'scroll');
 const progress: HTMLElement = document.querySelector('.progress-bar');
 
 const progress$ = scroll$.pipe(
-  // percent progress value
-//   map(x => x)
-  // window.pageYOffset
   map(<Document>({target}) => calculateScrollPercent(target.documentElement)),
 );
 
 
 
 progress$.subscribe(percent => {
-    console.log(percent);
     progress.style.width = `${percent}%`;
-
 });
 
