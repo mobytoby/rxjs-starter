@@ -6,7 +6,8 @@ const observer = {
     complete: () => console.log('complete!'),
 }
 const observable = new Observable(subscriber => {
-    subscriber.next('Hello world');
+    subscriber.next('Hello');
+    subscriber.next('World');
 });
 
 observable.subscribe(observer);
