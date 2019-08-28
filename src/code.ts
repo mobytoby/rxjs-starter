@@ -1,12 +1,33 @@
-import { Observable } from 'rxjs';
+import { fromEvent } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-const observer = {
-    next: value => console.log('next', value),
-    error: error => console.log('error', error),
-    complete: () => console.log('complete!'),
+function calculateScrollPercent(element) {
+  const { 
+    scrollTop,
+    scrollHeight,
+    clientHeight,
+  } = element;
+  return (scrollTop / (scrollHeight - clientHeight)) * 100;
 }
-const observable = new Observable(subscriber => {
-    subscriber.next('Hello world');
+
+document.body.style.visibility = 'visible';
+
+//streams 
+const scroll$ = fromEvent(document, 'scroll');
+const progress: HTMLElement = document.querySelector('.progress-bar');
+
+const progress$ = scroll$.pipe(
+  // percent progress value
+//   map(x => x)
+  // window.pageYOffset
+  map(<Document>({target}) => calculateScrollPercent(target.documentElement)),
+);
+
+
+
+progress$.subscribe(percent => {
+    console.log(percent);
+    progress.style.width = `${percent}%`;
+
 });
 
-observable.subscribe(observer);
